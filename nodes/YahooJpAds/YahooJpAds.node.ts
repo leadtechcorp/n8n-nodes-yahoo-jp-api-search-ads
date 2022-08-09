@@ -88,7 +88,7 @@ export class YahooJpAds implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const item = this.getInputData()[0];
-		const returnData: IDataObject[] = [];
+		let returnData: IDataObject[] = [];
 		const BASE_URL = 'https://ads-search.yahooapis.jp/api/v8';
 
 		try {
@@ -133,7 +133,7 @@ export class YahooJpAds implements INodeType {
 
 				const response = await axios.post(URL, formData, signedRequestObject);
 
-				returnData.push({ json: response.data });
+				returnData = response.data;
 			}
 		} catch (error) {
 			if (this.continueOnFail()) {
